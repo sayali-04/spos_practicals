@@ -1,0 +1,46 @@
+from tkinter import *
+from functools import partial
+
+#function to validate logincredidential
+def ValidateLogin(username, password):
+    print("username entered:", username.get())
+    print("password entered:", password.get())
+    lognSuccess = Label(tkWindow, text="Login Successful")
+    lognSuccess.grid(row=5, column=0)
+
+#function to clear login fields
+def clearLogin(username, password):
+    usernameEntry.delete(0,'end')
+    passwordEntry.delete(0,'end')
+
+#main window setup
+tkWindow = Tk()
+tkWindow.geometry('400x500')
+tkWindow.title("welcome to login form")
+
+#username label & entry box
+usernameLabel= Label(tkWindow,text= "UserName").grid(row=0,column=0)
+username=StringVar()
+usernameEntry = Entry(tkWindow,textvariable="UserName")
+usernameEntry.grid(row=0,column=1)
+
+#password label & entry box
+passwordLabel= Label(tkWindow,text= "Password").grid(row=1,column=0)
+password=StringVar()
+passwordEntry= Entry(tkWindow,textvariable="Password",show="*")
+passwordEntry.grid(row=1,column=1)
+
+#wrapping function with partial for passing paramter
+ValidateLogin= partial(ValidateLogin,username,password)
+clearLogin= partial(clearLogin,username,password)
+
+#login & clear button
+loginButton= Button(tkWindow, text="login", command=ValidateLogin)
+loginButton.grid(row=4,column=0)
+cancelButton= Button(tkWindow, text="cancel",command=clearLogin)
+cancelButton.grid(row=4,column=1)
+
+#run the window
+tkWindow.mainloop()
+
+    
